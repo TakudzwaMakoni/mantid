@@ -264,19 +264,13 @@ Colorfill Plots
 - The methods for changing the axis scale on colorfill plots (from the context menu or figure options) has been harmonised.
 - Changing the figure options on tiled colorfill plots now applies to all the plots if there is only one colorbar.
 - Colorfill plots now correctly use the workspace name as the plot title.
-- ``Select image`` in figure options now contains each image, rather than each spectrum, for colorfil plots of workspaces with a numeric vertical axis.
-- Monitor only spectra can be plotted as a colorfill successfuly.
-- The y axis labels will now appear in the correct order if imshow is called from a script with origin=upper.
-- Fixed a bug with colorfill plot script generation for distribution workspaces.
-- Changing the normalisation and scale on colorfill plots now safely handles negative limits.
-
-Fitting
-#######
-
-- Defining a new Fit Function after deleting a plot is now handled safely.
-- The plot guess of the ``Bk2BkExpConvPV`` is now correct.
-- A sign error has been corrected in the ``Bk2Bk2ExpConvPV`` function.
-- The peak cursor now maintains its cross shape when ready to add a peak.
-- The fit property browser can be resized now a workaround for a QT bug has been implemented.
+- Overplotting no longer resets the axes scales.
+- Fixed a bug with the peak cursor immediately resetting to the default cursor when trying to add a peak.
+- Changing a curve's properties on a plot no longer changes the order of the plot legend.
+- Sub-plots in the sliceviewer now follow the scaling on the colorbar
+- Fixed a bug which prevented the double click axis editor menus from working for tiled plots.
+- Select image in the plot figure option contains each image rather than each spectra for colorfil plots of workspaces with a numeric vertical axis
+- A bug has been fixed that caused an error if a workspace containing only monitor spectra was attempted to be plotted as a colorfill plot
+- Fixed a bug in plot config where changing an axes title in the axis tab did not change the title in the curves tab.
 
 :ref:`Release 5.1.0 <v5.1.0>`
