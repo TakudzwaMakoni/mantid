@@ -78,6 +78,29 @@ class AxesTabWidgetPresenterTest(unittest.TestCase):
                 ax_mock.set_facecolor.assert_called_once_with(
                     presenter.current_view_props.canvas_color)
 
+    def test_ampersand_removed_from_current_axis(self):
+        ax_title = "Test"
+
+        presenter = self._generate_presenter()
+        mocked_ax_props = mock.MagicMock()
+        ax_props_dict = {
+            # Mock out some properties that presenter.update_view depends on.
+            'canvas_color': (1.0, 1.0, 1.0, 1.0),
+            f"{ax_title}lim": (0, 1),
+            f"{ax_title}label": ax_title,
+            f"{ax_title}scale": "Linear",
+        }
+        mocked_ax_props.__getitem__.side_effect = ax_props_dict.__getitem__
+        presenter.get_selected_ax_properties = mock.Mock(return_value=mocked_ax_props)
+
+        presenter.current_axis = f"&{ax_title}"
+        # Should replace '&' in current_axis and then use it for accessing dict.
+        presenter.update_view()
+
+        # We cannot observe [] operator on mock, so use a magic method to view which we used
+        operator = mocked_ax_props.__getitem__
+        self.assertEqual(f"{ax_title}scale", operator.call_args[0][0])
+
     def test_apply_all_properties_calls_setters_with_correct_properties(self):
         ax_mock_1 = mock.MagicMock()
         ax_mock_2 = mock.MagicMock()
